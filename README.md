@@ -1,5 +1,5 @@
 
-# Fraud Detection Project
+# Fraud Detection
 
 This repository contains the code and data for a fraud detection project. The project aims to identify fraudulent activities in e-commerce transactions and bank transactions using various machine learning models.
 
@@ -18,19 +18,7 @@ fraud-detection/
 │   ├── model_training.ipynb
 │   └── model_explainability.ipynb
 │
-├── src/
-│   ├── data_preprocessing.py
-│   ├── feature_engineering.py
-│   ├── model_training.py
-│   ├── model_explainability.py
-│   ├── api/
-│   │   ├── serve_model.py
-│   │   └── requirements.txt
-│   └── dashboard/
-│       ├── app.py
-│       └── requirements.txt
-│
-├── Dockerfile
+├── requirements.txt
 ├── README.md
 └── .gitignore
 ```
@@ -64,9 +52,9 @@ Contains bank transaction data specifically curated for fraud detection analysis
 - `Amount`: The transaction amount in dollars.
 - `Class`: The target variable where 1 indicates a fraudulent transaction and 0 indicates a non-fraudulent transaction.
 
-## Tasks
+## Steps
 
-### Task 1 - Data Analysis and Preprocessing
+### Step 1 - Data Analysis and Preprocessing
 1. **Handle Missing Values**
    - Impute or drop missing values.
 2. **Data Cleaning**
@@ -86,7 +74,7 @@ Contains bank transaction data specifically curated for fraud detection analysis
 6. **Normalization and Scaling**
 7. **Encode Categorical Features**
 
-### Task 2 - Model Building and Training
+### Step 2 - Model Building and Training
 1. **Data Preparation**
    - Feature and Target Separation (`Class` for `creditcard`, `class` for `Fraud_Data`).
    - Train-Test Split.
@@ -111,13 +99,13 @@ Contains bank transaction data specifically curated for fraud detection analysis
 ### Prerequisites
 
 - Python 3.7+
-- Required Python packages are listed in `src/api/requirements.txt` and `src/dashboard/requirements.txt`.
+- Required Python packages are listed in `requirements.txt`.
 
 ### Installation
 
 1. Clone the repository:
    ```sh
-   git clone https://github.com/yourusername/fraud-detection.git
+   git clone https://github.com/zol23-g/fraud-detection.git
    cd fraud-detection
    ```
 
@@ -129,8 +117,7 @@ Contains bank transaction data specifically curated for fraud detection analysis
 
 3. Install the required packages:
    ```sh
-   pip install -r src/api/requirements.txt
-   pip install -r src/dashboard/requirements.txt
+   pip install -r requirements.txt
    ```
 
 ### Usage
