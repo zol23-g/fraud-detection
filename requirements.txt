@@ -11,3 +11,7 @@ intervaltree
 category_encoders
 shap
 lime
+Dash
+plotly
+requests
+flask_cors
