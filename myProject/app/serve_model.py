@@ -14,10 +14,10 @@ app = Flask(__name__)
 base_dir = os.path.dirname(os.path.abspath(__file__))
 
 # Load models using absolute paths
-fraud_rf_model_path = os.path.join(base_dir, '../models', 'fraud_detection_rf_model.pkl')
-fraud_dt_model_path = os.path.join(base_dir, '../models', 'fraud_detection_dt_model.pkl')
-creditcard_rf_model_path = os.path.join(base_dir, '../models', 'creditcard_fraud_rf_model.pkl')
-creditcard_dt_model_path = os.path.join(base_dir, '../models', 'creditcard_fraud_dt_model.pkl')
+fraud_rf_model_path = os.path.join(base_dir, 'models', 'fraud_detection_rf_model.pkl')
+fraud_dt_model_path = os.path.join(base_dir, 'models', 'fraud_detection_dt_model.pkl')
+creditcard_rf_model_path = os.path.join(base_dir, 'models', 'creditcard_fraud_rf_model.pkl')
+creditcard_dt_model_path = os.path.join(base_dir, 'models', 'creditcard_fraud_dt_model.pkl')
 
 try:
     fraud_rf_model = joblib.load(fraud_rf_model_path)
