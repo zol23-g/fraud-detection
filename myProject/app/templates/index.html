@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fraud Detection Interface</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gradient-to-b from-blue-50 to-blue-100 font-sans leading-normal tracking-normal">
+
+    <!-- Header Section -->
+    <header class="bg-blue-600 text-white text-center py-8">
+        <h1 class="text-5xl font-bold">Fraud Detection System</h1>
+        <p class="text-lg mt-2 max-w-2xl mx-auto">Use our machine learning models to detect fraud in transactions and credit card activity. Select a model, enter the necessary details, and receive an instant prediction!</p>
+    </header>
+
+    <main class="mt-10 flex flex-col items-center px-4">
+        <!-- Fraud Detection Form -->
+        <div class="bg-white shadow-lg rounded-lg p-8 my-8 w-full max-w-xl">
+            <h2 class="text-3xl font-semibold text-gray-800 mb-6">Fraud Detection Prediction</h2>
+            <p class="text-gray-600 mb-4">Provide transaction details below to detect possible fraud. Select a model type to begin.</p>
+            <form id="fraudForm" class="space-y-6">
+                <!-- Model Selection -->
+                <div>
+                    <label for="fraud_model_type" class="block text-gray-700 font-medium">Model Type:</label>
+                    <select id="fraud_model_type" name="model_type" class="w-full mt-2 p-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                        <option value="rf">Random Forest</option>
+                        <option value="dt">Decision Tree</option>
+                    </select>
+                    <p class="text-sm text-gray-500 mt-1">Choose between Random Forest and Decision Tree models for fraud detection.</p>
+                </div>
+
+                <!-- Transaction Details -->
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label for="purchase_value" class="block text-gray-700 font-medium">Purchase Value ($):</label>
+                        <input type="number" id="purchase_value" name="purchase_value" step="0.1" class="w-full p-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                        <p class="text-sm text-gray-500">Enter the total purchase amount in dollars.</p>
+                    </div>
+
+                    <div>
+                        <label for="transaction_freq" class="block text-gray-700 font-medium">Transaction Frequency:</label>
+                        <input type="number" id="transaction_freq" name="transaction_freq" class="w-full p-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                        <p class="text-sm text-gray-500">Number of transactions by this user within a certain time.</p>
+                    </div>
+
+                    <div>
+                        <label for="transaction_velocity" class="block text-gray-700 font-medium">Transaction Velocity:</label>
+                        <input type="number" id="transaction_velocity" name="transaction_velocity" step="0.1" class="w-full p-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                        <p class="text-sm text-gray-500">Average speed of user transactions over time.</p>
+                    </div>
+
+                    <div>
+                        <label for="hour_of_day" class="block text-gray-700 font-medium">Hour of Day:</label>
+                        <input type="number" id="hour_of_day" name="hour_of_day" min="0" max="23" class="w-full p-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                        <p class="text-sm text-gray-500">Hour of the transaction (0–23).</p>
+                    </div>
+
+                    <div>
+                        <label for="day_of_week" class="block text-gray-700 font-medium">Day of Week:</label>
+                        <input type="number" id="day_of_week" name="day_of_week" min="0" max="6" class="w-full p-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                        <p class="text-sm text-gray-500">Day of the week (0 = Sunday, 6 = Saturday).</p>
+                    </div>
+
+                    <div>
+                        <label for="source_encoded" class="block text-gray-700 font-medium">Source Encoded:</label>
+                        <input type="number" id="source_encoded" name="source_encoded" class="w-full p-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                        <p class="text-sm text-gray-500">Numeric representation of transaction source (e.g., SEO, Ads).</p>
+                    </div>
+
+                    <div>
+                        <label for="browser_encoded" class="block text-gray-700 font-medium">Browser Encoded:</label>
+                        <input type="number" id="browser_encoded" name="browser_encoded" class="w-full p-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                        <p class="text-sm text-gray-500">Numeric representation of browser used (e.g., Chrome, Safari).</p>
+                    </div>
+
+                    <div>
+                        <label for="sex_encoded" class="block text-gray-700 font-medium">Sex Encoded:</label>
+                        <input type="number" id="sex_encoded" name="sex_encoded" min="0" max="1" class="w-full p-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                        <p class="text-sm text-gray-500">Numeric representation of user gender (0 = Female, 1 = Male).</p>
+                    </div>
+                </div>
+
+                <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-lg shadow focus:outline-none focus:ring-2 focus:ring-blue-500">Predict Fraud</button>
+            </form>
+            <p id="fraudResult" class="text-lg font-semibold mt-4"></p>
+        </div>
+
+        <!-- Credit Card Fraud Detection Form -->
+        <div class="bg-white shadow-lg rounded-lg p-8 my-8 w-full max-w-xl">
+            <h2 class="text-3xl font-semibold text-gray-800 mb-6">Credit Card Fraud Detection Prediction</h2>
+            <p class="text-gray-600 mb-4">Input credit card transaction data for a fraud detection prediction. Select a model type to proceed.</p>
+            <form id="creditCardForm" class="space-y-6">
+                <div>
+                    <label for="credit_model_type" class="block text-gray-700 font-medium">Model Type:</label>
+                    <select id="credit_model_type" name="model_type" class="w-full mt-2 p-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                        <option value="rf">Random Forest</option>
+                        <option value="dt">Decision Tree</option>
+                    </select>
+                    <p class="text-sm text-gray-500 mt-1">Choose between Random Forest and Decision Tree models for credit card fraud detection.</p>
+                </div>
+
+                <!-- Credit Card Fraud Detection Fields -->
+                <div class="grid grid-cols-2 gap-4">
+                    {% for i in range(1, 29) %}
+                        <div>
+                            <label for="V{{ i }}" class="block text-gray-700 font-medium">V{{ i }}:</label>
+                            <input type="number" id="V{{ i }}" name="V{{ i }}" step="0.0001" class="w-full p-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                        </div>
+                    {% endfor %}
+                </div>
+
+                <div>
+                    <label for="Amount" class="block text-gray-700 font-medium">Amount:</label>
+                    <input type="number" id="Amount" name="Amount" step="0.01" class="w-full p-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                    <p class="text-sm text-gray-500">Enter the total transaction amount in dollars.</p>
+                </div>
+
+                <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-lg shadow focus:outline-none focus:ring-2 focus:ring-blue-500">Predict Credit Card Fraud</button>
+            </form>
+            <p id="creditCardResult" class="text-lg font-semibold mt-4"></p>
+        </div>
+    </main>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
