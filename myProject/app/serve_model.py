@@ -1,6 +1,6 @@
 import os
 import joblib
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 import numpy as np
 import logging
 
@@ -19,6 +19,7 @@ fraud_dt_model_path = os.path.join(base_dir, 'models', 'fraud_detection_dt_model
 creditcard_rf_model_path = os.path.join(base_dir, 'models', 'creditcard_fraud_rf_model.pkl')
 creditcard_dt_model_path = os.path.join(base_dir, 'models', 'creditcard_fraud_dt_model.pkl')
 
+# Load the models and handle any potential errors
 try:
     fraud_rf_model = joblib.load(fraud_rf_model_path)
     fraud_dt_model = joblib.load(fraud_dt_model_path)
@@ -29,19 +30,24 @@ except FileNotFoundError as e:
     logging.error(f"Model file not found: {e}")
     raise
 
+# Define the home route to serve an HTML interface (if using one)
+@app.route('/')
+def home():
+    return render_template('index.html')
+
 # API endpoint for Random Forest fraud data predictions
 @app.route('/predict_fraud_rf', methods=['POST'])
 def predict_fraud_rf():
     try:
         data = request.get_json()
         features = [
-            data['purchase_value'], 
-            data['transaction_freq'], 
-            data['transaction_velocity'], 
-            data['hour_of_day'], 
-            data['day_of_week'], 
-            data['source_encoded'], 
-            data['browser_encoded'], 
+            data['purchase_value'],
+            data['transaction_freq'],
+            data['transaction_velocity'],
+            data['hour_of_day'],
+            data['day_of_week'],
+            data['source_encoded'],
+            data['browser_encoded'],
             data['sex_encoded']
         ]
         
@@ -60,13 +66,13 @@ def predict_fraud_dt():
     try:
         data = request.get_json()
         features = [
-            data['purchase_value'], 
-            data['transaction_freq'], 
-            data['transaction_velocity'], 
-            data['hour_of_day'], 
-            data['day_of_week'], 
-            data['source_encoded'], 
-            data['browser_encoded'], 
+            data['purchase_value'],
+            data['transaction_freq'],
+            data['transaction_velocity'],
+            data['hour_of_day'],
+            data['day_of_week'],
+            data['source_encoded'],
+            data['browser_encoded'],
             data['sex_encoded']
         ]
         
